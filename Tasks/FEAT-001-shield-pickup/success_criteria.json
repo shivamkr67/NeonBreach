@@ -1,0 +1,26 @@
+{
+  "task_id": "FEAT-001",
+  "type": "feature",
+  "difficulty": "medium",
+  "engine": "Unity 2022.3 LTS",
+  "scene": "Assets/_Project/Scenes/Arena.unity",
+  "setup": { "drop_chance_override": 1.0, "player_hp": 10 },
+  "input_sequence": [
+    { "t": 0.0, "input": "Kill a Grunt" },
+    { "t": 1.0, "input": "Walk onto the cyan orb" },
+    { "t": 2.0, "input": "Let a Grunt hit the player (1 damage)" },
+    { "t": 10.5, "input": "Let a Grunt hit the player (1 damage)" }
+  ],
+  "expected_visual": [
+    "Cyan orb appears where the enemy died and bobs/rotates",
+    "Cyan shield bar appears above the HP bar after pickup",
+    "Orb disappears on pickup"
+  ],
+  "verifiable_state": [
+    { "t": 1.1, "path": "PlayerController.Health.ActiveShield", "equals": 4 },
+    { "t": 2.1, "path": "PlayerController.Health.ActiveShield", "equals": 3 },
+    { "t": 2.1, "path": "PlayerController.Health.Current", "equals": 10, "note": "shield absorbed the hit" },
+    { "t": 10.5, "path": "PlayerController.Health.ActiveShield", "equals": 0 },
+    { "t": 10.6, "path": "PlayerController.Health.Current", "equals": 9, "note": "expired shield no longer protects" }
+  ]
+}

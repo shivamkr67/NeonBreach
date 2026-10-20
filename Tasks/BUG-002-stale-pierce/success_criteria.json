@@ -1,0 +1,23 @@
+{
+  "task_id": "BUG-002",
+  "type": "bugfix",
+  "difficulty": "medium",
+  "engine": "Unity 2022.3 LTS",
+  "scene": "Assets/_Project/Scenes/Arena.unity",
+  "bug_flag": "StalePierceCounter",
+  "setup": { "weapon": "Pulse Pistol", "projectile_prewarm": 1, "target": "static enemy with 10 HP at 6 units" },
+  "input_sequence": [
+    { "t": 0.0, "input": "Aim at the target and fire one shot" },
+    { "t": 0.8, "input": "Fire a second shot (reuses the same pooled bullet)" }
+  ],
+  "expected_visual": [
+    "Target flashes white and is knocked back after BOTH shots",
+    "Target HP drops by 1 per shot"
+  ],
+  "verifiable_state": [
+    { "t": 0.8, "path": "Target.Health.Current", "equals": 9 },
+    { "t": 1.6, "path": "Target.Health.Current", "equals": 8 }
+  ],
+  "automated_tests": ["ProjectileTests.Fixed_RecycledProjectile_StillDealsDamage"],
+  "repro_test": "ProjectileTests.Repro_StalePierceCounter_RecycledProjectileDealsNoDamage"
+}

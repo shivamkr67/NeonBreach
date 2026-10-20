@@ -1,0 +1,23 @@
+{
+  "task_id": "BUG-004",
+  "type": "bugfix",
+  "difficulty": "easy",
+  "engine": "Unity 2022.3 LTS",
+  "scene": "Assets/_Project/Scenes/Arena.unity",
+  "bug_flag": "ComboTimerNotRefreshed",
+  "setup": { "combo_window": 2.5 },
+  "input_sequence": [
+    { "t": 0.0, "input": "Kill an enemy" },
+    { "t": 1.0, "input": "Kill an enemy" },
+    { "t": 2.0, "input": "Kill an enemy" },
+    { "t": 3.0, "input": "Kill an enemy" },
+    { "t": 4.0, "input": "Kill an enemy" }
+  ],
+  "expected_visual": ["HUD shows COMBO x5 and multiplier 2 at t=4s"],
+  "verifiable_state": [
+    { "t": 4.0, "path": "ScoreSystem.Combo", "equals": 5 },
+    { "t": 4.0, "path": "ScoreSystem.Multiplier", "equals": 2 }
+  ],
+  "automated_tests": ["ScoreTests.Fixed_ComboSurvivesContinuousKills"],
+  "repro_test": "ScoreTests.Repro_ComboTimerNotRefreshed_ComboDropsMidChain"
+}

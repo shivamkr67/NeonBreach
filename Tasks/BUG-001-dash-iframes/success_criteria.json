@@ -1,0 +1,24 @@
+{
+  "task_id": "BUG-001",
+  "type": "bugfix",
+  "difficulty": "easy",
+  "engine": "Unity 2022.3 LTS",
+  "scene": "Assets/_Project/Scenes/Arena.unity",
+  "bug_flag": "DashInvulnerabilityLeak",
+  "setup": { "player_start": [0, 1, 0], "dash_iframes": 0.25, "dash_cooldown": 2.0 },
+  "input_sequence": [
+    { "t": 0.0, "input": "Hold W and press Space (dash)" },
+    { "t": 0.6, "input": "Stand still beside a Grunt and wait for it to attack" }
+  ],
+  "expected_visual": [
+    "Player HP bar drops when the Grunt attacks at t >= 0.6s",
+    "Enemy hit is no longer ignored after the dash finishes"
+  ],
+  "verifiable_state": [
+    { "t": 0.6, "path": "PlayerController.Health.IsInvulnerable", "equals": false },
+    { "t": 2.0, "path": "PlayerController.Health.Current", "lessThan": 10, "note": "after being attacked once" },
+    { "t": 2.1, "path": "PlayerController.dashCooldown", "equals": 2.0, "note": "must be unchanged" }
+  ],
+  "automated_tests": ["DashTests.Fixed_DashIframes_EndShortlyAfterDash"],
+  "repro_test": "DashTests.Repro_DashInvulnerabilityLeak_StaysInvulnerable"
+}

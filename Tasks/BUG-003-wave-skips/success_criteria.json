@@ -1,0 +1,24 @@
+{
+  "task_id": "BUG-003",
+  "type": "bugfix",
+  "difficulty": "medium",
+  "engine": "Unity 2022.3 LTS",
+  "scene": "Assets/_Project/Scenes/Arena.unity",
+  "bug_flag": "WaveDoubleDecrement",
+  "setup": { "wave": "4 stationary enemies (speed 0), 1 HP each" },
+  "input_sequence": [
+    { "t": 0.5, "input": "All 4 enemies have spawned" },
+    { "t": 0.5, "input": "Kill exactly 2 of them" }
+  ],
+  "expected_visual": [
+    "No 'WAVE CLEARED' banner",
+    "F1 overlay: 'Enemies on screen' equals 'WaveManager alive'"
+  ],
+  "verifiable_state": [
+    { "t": 0.65, "path": "WaveManager.AliveCount", "equals": 2 },
+    { "t": 0.65, "path": "EnemyAI.Active.Count", "equals": 2 },
+    { "t": 0.65, "event": "WaveCleared", "fired": false }
+  ],
+  "automated_tests": ["WaveTests.Fixed_AliveCount_TracksRealEnemies"],
+  "repro_test": "WaveTests.Repro_WaveDoubleDecrement_WaveEndsWithEnemiesAlive"
+}

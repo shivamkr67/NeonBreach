@@ -1,0 +1,23 @@
+{
+  "task_id": "FEAT-002",
+  "type": "feature",
+  "difficulty": "hard",
+  "engine": "Unity 2022.3 LTS",
+  "scene": "Assets/_Project/Scenes/Arena.unity",
+  "setup": { "player_start": [0, 1, 0], "weapon_slot": 4, "enemies": "none" },
+  "input_sequence": [
+    { "t": 0.0, "input": "Press 4, aim at the +X wall at a 30 degree angle and fire once" },
+    { "t": 3.0, "input": "Aim straight into a corner (+X,+Z) and fire once" }
+  ],
+  "expected_visual": [
+    "Bullet reflects off the wall with equal incoming/outgoing angle",
+    "Bullet disappears after the third bounce",
+    "Corner shot reflects back toward the player without escaping or sticking"
+  ],
+  "verifiable_state": [
+    { "event": "bounce", "count_max": 3 },
+    { "path": "Projectile.bounces", "afterLifetime": 3 },
+    { "path": "Projectile.currentDamage", "afterBounce": [1.5, 1.8, 2.1] },
+    { "path": "Projectile.position", "withinArenaBounds": true }
+  ]
+}
