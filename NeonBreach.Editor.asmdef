@@ -1,0 +1,14 @@
+{
+  "name": "NeonBreach.Editor",
+  "rootNamespace": "NeonBreach.Editor",
+  "references": ["NeonBreach.Runtime"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
